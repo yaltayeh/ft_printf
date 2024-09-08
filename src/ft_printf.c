@@ -129,6 +129,14 @@ enum e_flags ft_flags_format(const char **fmt, int *number)
 	return (flags);
 }
 
+// int ft_printf(const char *fmt, ...)
+// {
+// 	va_list ap;
+// 	va_start(ap, fmt);
+
+// 	return (vprintf(fmt, ap));
+// }
+
 int ft_printf(const char *fmt, ...)
 {
     enum e_flags flags;

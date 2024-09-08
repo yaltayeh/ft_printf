@@ -17,7 +17,7 @@ SOURCES := $(addprefix $(SRCDIR)/, $(SOURCES))
 
 all: $(NAME)
 
-bonus: $(NAME)
+#bonus: $(NAME)
 
 LIBFTDIR	= libft
 include libft/include.mk
