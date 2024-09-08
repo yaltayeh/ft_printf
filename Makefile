@@ -5,39 +5,30 @@ SRCDIR		= src
 BUILDDIR	= build
 INCLUDE 	= include
 
-MAND_SRCS = mandatory/ft_printf.c
-BONUS_SRCS = bonus/ft_printf_bonus.c
+SOURCES = ft_printf.c
 
-MAND_OBJECTS = $(MAND_SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+OBJECTS = $(SOURCES:.c=.o)
 
 # Add build dir before all object files
-MAND_OBJECTS := $(addprefix $(BUILDDIR)/, $(MAND_OBJECTS))
-BONUS_OBJS := $(addprefix $(BUILDDIR)/, $(BONUS_OBJS))
+OBJECTS := $(addprefix $(BUILDDIR)/, $(OBJECTS))
 
 # Add soucre dir before all source files
-MAND_SRCS := $(addprefix $(SRCDIR)/, $(MAND_SRCS))
-BONUS_SRCS := $(addprefix $(SRCDIR)/, $(BONUS_SRCS))
-
+SOURCES := $(addprefix $(SRCDIR)/, $(SOURCES))
 
 all: $(NAME)
 
-bonus: $(NAME) $(BONUS_OBJS)
-	@ar d $(NAME) $(MAND_OBJECTS)
-	@ar rcs $(NAME) $(BONUS_OBJS)
-	@echo add bonus objects to $(NAME)
+bonus: $(NAME)
 
 LIBFTDIR	= libft
 include libft/include.mk
 
 INCLUDE := $(addprefix -I, $(INCLUDE))
 
-
 libft: $(LIBFT)
 	@$(MAKE) -C $(LIBFTDIR) all
 
 
-$(NAME): $(OBJECTS) $(MAND_OBJECTS)
+$(NAME): $(OBJECTS)
 	@ar rcs $@ $^
 	@echo add all objects to $(NAME)
 
@@ -47,22 +38,20 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $@
 
 clean:
-#	@$(MAKE) -C $(LIBFTDIR) clean
 	@rm -f $(OBJECTS) $(MAND_OBJECTS) $(BONUS_OBJS)
 	@echo FT_PRINTF remove all object files
 
 fclean: clean
-#	@$(MAKE) -C $(LIBFTDIR) fclean
+	@rm -f $(LIBFT)
 	@rm -f $(NAME)
 	@echo FT_PRINTF remove all files
 
 re: fclean all
 
-
 a.out: $(NAME) main.c
-	@cc $(INCLUDE) -L. main.c $(NAME) -o a.out
+	@cc $(INCLUDE) -L. main.c $(NAME) -o a.out 2> /dev/null
 
 test: a.out
 	@./a.out
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

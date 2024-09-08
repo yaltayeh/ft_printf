@@ -1,8 +1,13 @@
 #include "libft.h"
 #include "ft_printf.h"
+#include <limits.h>
+
+#define CASE "% 4s", "te"
+#define TEST "\n"CASE
 
 int main()
 {
-	ft_printf("%.005d \n", 0);
-	printf("%03.005d \n", 32245524);
+	int a = ft_printf(TEST);
+	int b = printf   (TEST);
+	ft_printf("\n%d == %d\n", a, b);
 }

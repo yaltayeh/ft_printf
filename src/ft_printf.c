@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "libft.h"
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 #define CONVENTIONS_CHARACTERS "cspdiuxX%"
@@ -10,13 +10,22 @@
 #define DECIMAL_BASE "0123456789"
 
 /* %c Prints a single character. */
+
 /* %s Prints a string (as defined by the common C convention). */
-int	ft_put_str(char *str, enum e_flags flags)
+int	ft_put_str(char *str, enum e_flags flags, int space_count)
 {
 	int	ret;
 	int	count;
 
 	count = 0;
+	if (!str)
+	{
+        str = "(null)";
+		space_count = 0;
+	}
+	space_count -= ft_strlen(str);
+	while (space_count-- > 0)
+		count += ft_putchar(' ');
 	ret = ft_putstr(str);
 	if (ret < 0)
 		return (ret);
@@ -33,6 +42,8 @@ int ft_put_address(void *ptr, enum e_flags flags)
 
 	count = 0;
 	addr = (unsigned long)ptr;
+	if (!ptr)
+		return (write(1, "(nil)", 5));
 	ret = write(1, "0x", 2);
 	if (ret < 0)
 		return (ret);
@@ -51,7 +62,20 @@ int ft_put_decimal(int n, enum e_flags flags) // %i %d
 	int	ret;
 
 	ret = 0;
-	ret = ft_putnbr_fd(n, 1);
+	if (flags & PLUS)
+	{
+		if (n >= 0)
+		{
+			ret += write(1, "+", 1);
+		}
+	}
+	else if (flags & SPACE)
+	{
+		if (n >= 0)
+			ret += write(1, " ", 1);
+	
+	}
+	ret += ft_putnbr_fd(n, 1);
 	return (ret);
 }
 
@@ -66,12 +90,12 @@ int ft_put_unsigned_decimal(unsigned int n, enum e_flags flags)
 
 /* %x Prints a number in hexadecimal (base 16) lowercase format. */
 /* %X Prints a number in hexadecimal (base 16) uppercase format. */
-int ft_put_hexadecimal(unsigned int x, int is_lower, enum e_flags flags)
+int ft_put_hexadecimal(unsigned long x, int is_lower, enum e_flags flags)
 {
 	int	ret;
 
 	ret = 0;
-	if (flags & HASH)
+	if (flags & HASH && x)
 	{
 		if (is_lower)
 			ret += ft_putstr("0x");
@@ -85,7 +109,7 @@ int ft_put_hexadecimal(unsigned int x, int is_lower, enum e_flags flags)
 	return (ret);
 }
 
-static int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags)
+int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags, int number)
 {
     int	ret;
 
@@ -93,7 +117,7 @@ static int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags)
     if (conversions == 'c')
         ret = ft_putchar((char)va_arg(*ap, int));
     else if (conversions == 's')
-        ret = ft_putstr(va_arg(*ap, char *));
+        ret = ft_put_str(va_arg(*ap, char *), flags, number);
     else if (conversions == 'p')
         ret = ft_put_address(va_arg(*ap, void *), flags);
     else if (conversions == 'd' || conversions == 'i')
@@ -101,9 +125,9 @@ static int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags)
 	else if (conversions == 'u')
 		ret = ft_put_unsigned_decimal(va_arg(*ap, unsigned int), flags);
 	else if (conversions == 'x')
-		ret = ft_put_hexadecimal(va_arg(*ap, unsigned long), 1, flags);
+		ret = ft_put_hexadecimal(va_arg(*ap, unsigned int), 1, flags);
 	else if (conversions == 'X')
-		ret = ft_put_hexadecimal(va_arg(*ap, unsigned long), 0, flags);
+		ret = ft_put_hexadecimal(va_arg(*ap, unsigned int), 0, flags);
 	else if (conversions == '%')
 		ret = ft_putchar('%');
 	return (ret);
@@ -116,12 +140,12 @@ enum e_flags ft_flags_format(const char **fmt, int *number)
 	enum e_flags flags;
 
 	flags = NONE;
-	ft_strlcpy(flags_character, "# +-0.", -1);
+	ft_strlcpy(flags_character, "# +", -1);
 	flag = ft_strchr(flags_character, **fmt);
 	while (flag)
 	{
 		*fmt = *fmt + 1;
-		if (*flag == '0' || *flag == '.')
+		if (*flag == ' ')
 			*number = ft_atoi_track(fmt);
 		flags |= (1 << (flag - flags_character));
 		flag = ft_strchr(flags_character, **fmt);
@@ -140,24 +164,25 @@ enum e_flags ft_flags_format(const char **fmt, int *number)
 int ft_printf(const char *fmt, ...)
 {
     enum e_flags flags;
-	int number;
 	va_list ap;
 	int	count;
+	int	number;
 
 	va_start(ap, fmt);
     flags = NONE;
 	count = 0;
+	number = 0;
     while (*fmt)
     {
         if (*fmt == '%')
         {
             fmt++;
-			//printf("before flags %s\n", fmt);
+			// printf("before flags %s\n", fmt);
 			flags = ft_flags_format(&fmt, &number);
-			//printf("after flags %s\n", fmt);
-			//printf("data: %d\n", number);
+			// printf("after flags %s\n", fmt);
+			// printf("data: %d\n", number);
 			if (ft_strchr(CONVENTIONS_CHARACTERS, *fmt))
-				count += ft_printf_redirect(&ap, *fmt, flags);
+				count += ft_printf_redirect(&ap, *fmt, flags, number);
 			else
 				count += ft_putchar(*fmt); // error
         }
