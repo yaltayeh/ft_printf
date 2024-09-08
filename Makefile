@@ -5,19 +5,27 @@ SRCDIR		= src
 BUILDDIR	= build
 INCLUDE 	= include
 
-SOURCES = ft_printf.c ft_digit_count.c
-OBJECTS = $(SOURCES:.c=.o)
+MAND_SRCS = mandatory/ft_printf.c
+BONUS_SRCS = bonus/ft_printf_bonus.c
+
+MAND_OBJECTS = $(MAND_SRCS:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 # Add build dir before all object files
-OBJECTS := $(addprefix $(BUILDDIR)/, $(OBJECTS))
+MAND_OBJECTS := $(addprefix $(BUILDDIR)/, $(MAND_OBJECTS))
+BONUS_OBJS := $(addprefix $(BUILDDIR)/, $(BONUS_OBJS))
 
 # Add soucre dir before all source files
-SOURCES := $(addprefix $(SRCDIR)/, $(SOURCES))
+MAND_SRCS := $(addprefix $(SRCDIR)/, $(MAND_SRCS))
+BONUS_SRCS := $(addprefix $(SRCDIR)/, $(BONUS_SRCS))
 
 
 all: $(NAME)
 
-#bonus: $(NAME)
+bonus: $(NAME) $(BONUS_OBJS)
+	@ar d $(NAME) $(MAND_OBJECTS)
+	@ar rcs $(NAME) $(BONUS_OBJS)
+	@echo add bonus objects to $(NAME)
 
 LIBFTDIR	= libft
 include libft/include.mk
@@ -28,21 +36,23 @@ INCLUDE := $(addprefix -I, $(INCLUDE))
 libft: $(LIBFT)
 	@$(MAKE) -C $(LIBFTDIR) all
 
-$(NAME): $(OBJECTS)
-	@ar rcs $@ $(OBJECTS)
+
+$(NAME): $(OBJECTS) $(MAND_OBJECTS)
+	@ar rcs $@ $^
+	@echo add all objects to $(NAME)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo Build $@ $<
+	@echo Build $@ object from $<
 	@$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $@
 
 clean:
-	@$(MAKE) -C $(LIBFTDIR) clean
-	@rm -f $(OBJECTS)
+#	@$(MAKE) -C $(LIBFTDIR) clean
+	@rm -f $(OBJECTS) $(MAND_OBJECTS) $(BONUS_OBJS)
 	@echo FT_PRINTF remove all object files
 
 fclean: clean
-	@$(MAKE) -C $(LIBFTDIR) fclean
+#	@$(MAKE) -C $(LIBFTDIR) fclean
 	@rm -f $(NAME)
 	@echo FT_PRINTF remove all files
 

@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "libft.h"
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 #include <stdio.h>
 
 #define CONVENTIONS_CHARACTERS "cspdiuxX%"
@@ -85,7 +85,7 @@ int ft_put_hexadecimal(unsigned int x, int is_lower, enum e_flags flags)
 	return (ret);
 }
 
-int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags)
+static int ft_printf_redirect(va_list *ap, char conversions, enum e_flags flags)
 {
     int	ret;
 
@@ -152,14 +152,14 @@ int ft_printf(const char *fmt, ...)
         if (*fmt == '%')
         {
             fmt++;
-			printf("before flags %s\n", fmt);
+			//printf("before flags %s\n", fmt);
 			flags = ft_flags_format(&fmt, &number);
-			printf("after flags %s\n", fmt);
-			printf("data: %d\n", number);
+			//printf("after flags %s\n", fmt);
+			//printf("data: %d\n", number);
 			if (ft_strchr(CONVENTIONS_CHARACTERS, *fmt))
 				count += ft_printf_redirect(&ap, *fmt, flags);
 			else
-				write(1, "E", 1); // error
+				count += ft_putchar(*fmt); // error
         }
 		else
 			count += ft_putchar(*fmt);
