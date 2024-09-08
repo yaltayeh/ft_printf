@@ -6,7 +6,7 @@
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 06:53:34 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/08/27 06:54:14 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:59:33 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,23 @@
 int	ft_putnbr_fd(int n, int fd)
 {
 	long	num;
-	int		len;
-	int		ret;
+	size_t	count;
 
 	num = n;
-	len = 0;
+	count = 0;
 	if (num < 0)
 	{
-		ret = ft_putchar_fd('-', fd);
-		if (ret < 0)
-			return (ret);
-		len += ret;
+		count += ft_putchar_fd('-', fd);
 		num *= -1;
 	}
 	if (num <= 9)
 	{
-		ret = +ft_putchar_fd(num + '0', fd);
-		if (ret < 0)
-			return (ret);
+		count += ft_putchar_fd(num + '0', fd);
 	}
 	else
 	{
-		ret = ft_putnbr_fd(num / 10, fd);
-		if (ret < 0)
-			return (ret);
-		ret += ft_putnbr_fd(num % 10, fd);
+		count += ft_putnbr_fd(num / 10, fd);
+		count += ft_putnbr_fd(num % 10, fd);
 	}
-	len += ret;
-	return (len);
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:15:57 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/08/29 11:47:56 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:04:54 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 
 size_t	ft_strlen(const char *s);
 
@@ -54,14 +55,14 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
-int ft_putchar(char c);
-int ft_putstr(const char *s);
-int	ft_puthexadecimal(unsigned int x, int is_lower);
-int	ft_putbase_fd(unsigned long n, char	*base_symbol, int fd);
-int	ft_putchar_fd(char c, int fd);
-int	ft_putstr_fd(char *s, int fd);
-int	ft_putendl_fd(char *s, int fd);
-int	ft_putnbr_fd(int n, int fd);
+int		ft_putchar(char c);
+int		ft_putstr(const char *s);
+int		ft_puthexadecimal(unsigned int x, int is_lower);
+int		ft_putbase_fd(unsigned long n, char *base_symbol, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putendl_fd(char *s, int fd);
+int		ft_putnbr_fd(int n, int fd);
 
 typedef struct s_list
 {

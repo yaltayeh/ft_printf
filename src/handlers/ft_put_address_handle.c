@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_put_address_handle.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 20:01:04 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/09/08 20:01:11 by yaltayeh         ###   ########.fr       */
+/*   Created: 2024/09/08 19:40:57 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/09/08 19:43:36 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_putchar(char c)
+int	ft_put_address_handle(void *ptr, enum e_flags flags)
 {
-	return (write(1, &c, 1));
+	int				ret;
+	int				count;
+	unsigned long	addr;
+
+	count = 0;
+	addr = (unsigned long)ptr;
+	if (!ptr)
+		return (write(1, "(nil)", 5));
+	ret = write(1, "0x", 2);
+	if (ret < 0)
+		return (ret);
+	count += ret;
+	ret = ft_putbase_fd(addr, HEX_BASE, 1);
+	if (ret < 0)
+		return (ret);
+	count += ret;
+	return (count);
 }

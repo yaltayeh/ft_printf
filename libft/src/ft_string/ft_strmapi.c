@@ -6,7 +6,7 @@
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:28:56 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/09/03 20:56:23 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:56:16 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	ret[len] = '\0';
 	return (ret);
 }
-

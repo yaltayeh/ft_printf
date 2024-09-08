@@ -5,7 +5,15 @@ SRCDIR		= src
 BUILDDIR	= build
 INCLUDE 	= include
 
-SOURCES = ft_printf.c
+SOURCES = \
+		ft_printf.c									\
+		ft_printf_redirect.c						\
+		ft_flags_parser.c							\
+		handlers/ft_put_address_handle.c  			\
+		handlers/ft_put_decimal_handle.c			\
+		handlers/ft_put_hexadecimal_handle.c		\
+		handlers/ft_put_str_handle.c				\
+		handlers/ft_put_unsigned_decimal_handle.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -49,7 +57,7 @@ fclean: clean
 re: fclean all
 
 a.out: $(NAME) main.c
-	@cc $(INCLUDE) -L. main.c $(NAME) -o a.out 2> /dev/null
+	@cc $(INCLUDE) -L. main.c $(NAME) -o a.out
 
 test: a.out
 	@./a.out

@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_put_unsigned_decimal_handle.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 20:01:04 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/09/08 20:01:11 by yaltayeh         ###   ########.fr       */
+/*   Created: 2024/09/08 19:48:08 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/09/08 19:48:41 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_putchar(char c)
+int	ft_put_unsigned_decimal_handle(unsigned int n, enum e_flags flags)
 {
-	return (write(1, &c, 1));
+	int	count;
+
+	count = ft_putbase_fd((unsigned long)n, DECIMAL_BASE, 1);
+	return (count);
 }

@@ -15,6 +15,7 @@ LIBFT_SOURCES =	\
 			ft_string/ft_isalpha.c			\
 			ft_string/ft_isdigit.c			\
 			ft_string/ft_isprint.c			\
+			ft_string/ft_isspace.c			\
 			ft_string/ft_itoa.c				\
 			ft_string/ft_split.c			\
 			ft_string/ft_strchr.c			\
@@ -50,9 +51,8 @@ LIBFT_SOURCES +=	\
 			ft_io/ft_putstr_fd.c			\
 			ft_io/ft_putendl_fd.c			\
 			ft_io/ft_putnbr_fd.c			\
-			ft_io/ft_putbase_fd.c			\
-			ft_io/ft_puthexadecimal.c
-
+			ft_io/ft_putbase_fd.c
+			
 LIBFT_SOURCES +=	\
 			ft_linked_list/ft_lstnew.c			\
 			ft_linked_list/ft_lstadd_front.c	\
