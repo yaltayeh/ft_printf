@@ -20,6 +20,7 @@
 # include <stdio.h>
 
 # define CONVENTIONS_CHARACTERS "cspdiuxX%"
+# define FLAGS_CHARACTERS "# +-.0"
 # define HEX_BASE "0123456789abcdef"
 # define HEX_UPPER_BASE "0123456789ABCDEF"
 # define DECIMAL_BASE "0123456789"
@@ -30,6 +31,9 @@ enum	e_flags
 	HASH = 1 << 0,
 	SPACE = 1 << 1,
 	PLUS = 1 << 2,
+	MINUS = 1 << 3,
+	DOT = 1 << 4,
+	ZERO = 1 << 5
 };
 
 /* %c Prints a single character. */

@@ -1,14 +1,26 @@
+# If LIBFTDIR not define set '.',
+# else Set before include,
+# because include libft from anywhere
 ifndef LIBFTDIR
 LIBFTDIR = .
 endif
 
-# Target and dirs
+# Set colors variables
+RESET	= \033[0;39m
+RED		= \033[0;91m
+GREEN	= \033[0;92m
+MAGENTA	= \033[0;95m
+YELLOW	= \033[0;93m
+
+# Set dirs path and set 
 LIBFT_SRCDIR	 = $(LIBFTDIR)/src
 LIBFT_BUILDDIR	 = $(LIBFTDIR)/build
 INCLUDE 		+= $(LIBFTDIR)/include
 
+# Set final target path
 LIBFT = $(LIBFTDIR)/libft.a
 
+# Set all source files to LIBFT_SOURCES
 LIBFT_SOURCES =	\
 			ft_string/ft_isalnum.c			\
 			ft_string/ft_isascii.c			\
@@ -74,11 +86,15 @@ LIBFT_OBJECTS := $(addprefix $(LIBFT_BUILDDIR)/, $(LIBFT_OBJECTS))
 # Add soucre dir before all source files
 LIBFT_SOURCES := $(addprefix $(LIBFT_SRCDIR)/, $(LIBFT_SOURCES))
 
+# Add all libft source file to OBJECTS
 SOURCES += $(LIBFT_SOURCES)
+# Add all libft object file to SOURCES
 OBJECTS += $(LIBFT_OBJECTS)
 
 # Build object(.o) file from source(.c) file
+# and dir if not exists
 $(LIBFT_BUILDDIR)/%.o: $(LIBFT_SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo Build object $@ from $<
-	@$(CC) $(CFLAGS) -c -I$(INCLUDE) $< -o $@
+	@$(CC) $(CFLAGS) -c -I$(INCLUDE) $< -o $@ \
+		&& echo "$(GREEN)Build $@ object from $< $(RESET)"\
+		|| echo "$(RED)Error in try build $< $(RESET)"
