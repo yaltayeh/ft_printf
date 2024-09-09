@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_put_str_handle(char *str, enum e_flags flags, int space_count)
+int	ft_put_str_handle(char *str, enum e_flags flags, int number)
 {
 	int	count;
 
@@ -20,11 +20,16 @@ int	ft_put_str_handle(char *str, enum e_flags flags, int space_count)
 	if (!str)
 	{
 		str = "(null)";
-		space_count = 0;
+		number = 0;
 	}
-	space_count -= ft_strlen(str);
-	while (space_count-- > 0)
-		count += ft_putchar(' ');
+//	printf("number: %d\n", number);
+	number -= ft_strlen(str);
+	if (flags & SPACE)
+		while (number-- > 0)
+			count += ft_putchar(' ');
 	count += ft_putstr(str);
+	if (flags & MINUS)
+		while (number-- > 0)
+			count += ft_putchar(' ');
 	return (count);
 }

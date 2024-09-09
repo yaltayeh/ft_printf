@@ -19,19 +19,22 @@ int	ft_printf_redirect(va_list *ap, char conversions, \
 
 	ret = 0;
 	if (conversions == 'c')
-		ret = ft_putchar((char)va_arg(*ap, int));
+		ret = ft_put_char_handle((char)va_arg(*ap, int), number);
 	else if (conversions == 's')
 		ret = ft_put_str_handle(va_arg(*ap, char *), flags, number);
 	else if (conversions == 'p')
-		ret = ft_put_address_handle(va_arg(*ap, void *), flags);
+		ret = ft_put_address_handle(va_arg(*ap, void *), flags, number);
 	else if (conversions == 'd' || conversions == 'i')
-		ret = ft_put_decimal_handle(va_arg(*ap, int), flags);
+		ret = ft_put_decimal_handle(va_arg(*ap, int), flags, number);
 	else if (conversions == 'u')
-		ret = ft_put_unsigned_decimal_handle(va_arg(*ap, unsigned int), flags);
+		ret = ft_put_unsigned_decimal_handle(va_arg(*ap, unsigned int),\
+						 					flags, number);
 	else if (conversions == 'x')
-		ret = ft_put_hexadecimal_handle(va_arg(*ap, unsigned int), 1, flags);
+		ret = ft_put_hexadecimal_handle(va_arg(*ap, unsigned int), \
+											1, flags, number);
 	else if (conversions == 'X')
-		ret = ft_put_hexadecimal_handle(va_arg(*ap, unsigned int), 0, flags);
+		ret = ft_put_hexadecimal_handle(va_arg(*ap, unsigned int),\
+											0, flags, number);
 	else if (conversions == '%')
 		ret = ft_putchar('%');
 	return (ret);

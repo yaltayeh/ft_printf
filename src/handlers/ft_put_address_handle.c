@@ -12,9 +12,8 @@
  
 #include "ft_printf.h"
 
-int	ft_put_address_handle(void *ptr, enum e_flags flags)
+int	ft_put_address_handle(void *ptr, enum e_flags flags, int number)
 {
-	int				ret;
 	int				count;
 	unsigned long	addr;
 
@@ -22,13 +21,10 @@ int	ft_put_address_handle(void *ptr, enum e_flags flags)
 	addr = (unsigned long)ptr;
 	if (!ptr)
 		return (write(1, "(nil)", 5));
-	ret = write(1, "0x", 2);
-	if (ret < 0)
-		return (ret);
-	count += ret;
-	ret = ft_putbase_fd(addr, HEX_BASE, 1);
-	if (ret < 0)
-		return (ret);
-	count += ret;
+	count += write(1, "0x", 2);
+	count += ft_putbase_fd(addr, HEX_BASE, 1);
+	while (number > count)
+		count += ft_putchar(' ');
+	
 	return (count);
 }

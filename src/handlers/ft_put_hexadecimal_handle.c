@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-int	ft_put_hexadecimal_handle(unsigned long x, int is_lower, enum e_flags flags)
+int	ft_put_hexadecimal_handle(unsigned long x, int is_lower, \
+								enum e_flags flags, int number)
 {
 	int	count;
 
@@ -28,5 +29,8 @@ int	ft_put_hexadecimal_handle(unsigned long x, int is_lower, enum e_flags flags)
 		count += ft_putbase_fd(x, HEX_BASE, 1);
 	else
 		count += ft_putbase_fd(x, HEX_UPPER_BASE, 1);
+	if (flags & MINUS)
+		while (number > count)
+			count += ft_putchar(' ');
 	return (count);
 }

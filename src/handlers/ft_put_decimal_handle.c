@@ -12,23 +12,26 @@
 
 #include "ft_printf.h"
 
-int	ft_put_decimal_handle(int n, enum e_flags flags)
+int	ft_put_decimal_handle(int n, enum e_flags flags, int number)
 {
-	int	ret;
+	int	count;
 
-	ret = 0;
+	count = 0;
 	if (flags & PLUS)
 	{
 		if (n >= 0)
-		{
-			ret += write(1, "+", 1);
-		}
+			count += write(1, "+", 1);
 	}
 	else if (flags & SPACE)
 	{
 		if (n >= 0)
-			ret += write(1, " ", 1);
+			count += write(1, " ", 1);
 	}
-	ret += ft_putnbr_fd(n, 1);
-	return (ret);
+	count += ft_putnbr_fd(n, 1);
+	if (flags & MINUS)
+	{
+		while (number > count)
+			count += ft_putchar(' ');
+	}
+	return (count);
 }

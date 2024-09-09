@@ -18,6 +18,7 @@ SOURCES = \
 		ft_printf.c									\
 		ft_printf_redirect.c						\
 		ft_flags_parser.c							\
+		handlers/ft_put_char_handle.c				\
 		handlers/ft_put_address_handle.c  			\
 		handlers/ft_put_decimal_handle.c			\
 		handlers/ft_put_hexadecimal_handle.c		\
@@ -62,8 +63,12 @@ $(NAME): $(OBJECTS)
 libft:
 	$(MAKE) -C $(LIBFTDIR) all
 
-test:
-	@echo "\e[1;37;41mTEST$(RESET)"
+test: $(NAME)
+	cc -L. main.c $(NAME)  -Iinclude -Ilibft/include
+#	clear
+	@echo "---------------------------"
+	./a.out
+	
 
 # Rule for build source files
 # and dir if not exists

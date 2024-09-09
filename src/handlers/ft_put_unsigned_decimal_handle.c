@@ -12,10 +12,14 @@
 
 #include "ft_printf.h"
 
-int	ft_put_unsigned_decimal_handle(unsigned int n, enum e_flags flags)
+int	ft_put_unsigned_decimal_handle(unsigned int n, \
+									enum e_flags flags, int number)
 {
 	int	count;
 
 	count = ft_putbase_fd((unsigned long)n, DECIMAL_BASE, 1);
+	if (flags & MINUS)
+		while (number > count)
+			count += ft_putchar(' ');
 	return (count);
 }

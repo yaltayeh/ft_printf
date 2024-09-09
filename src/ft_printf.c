@@ -28,7 +28,7 @@ int	ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			flags = ft_flags_format(&fmt, &number);
+			flags = ft_flags_parser(&fmt, &number);
 			if (ft_strchr(CONVENTIONS_CHARACTERS, *fmt))
 				count += ft_printf_redirect(&ap, *fmt, flags, number);
 			else

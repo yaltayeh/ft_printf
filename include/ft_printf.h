@@ -20,7 +20,7 @@
 # include <stdio.h>
 
 # define CONVENTIONS_CHARACTERS "cspdiuxX%"
-# define FLAGS_CHARACTERS "# +-.0"
+# define FLAGS_CHARACTERS "# +-.0123456789"
 # define HEX_BASE "0123456789abcdef"
 # define HEX_UPPER_BASE "0123456789ABCDEF"
 # define DECIMAL_BASE "0123456789"
@@ -37,26 +37,29 @@ enum	e_flags
 };
 
 /* %c Prints a single character. */
+int	ft_put_char_handle(char c, int number);
 
 /* %s Prints a string (as defined by the common C convention). */
 int	ft_put_str_handle(char *str, enum e_flags flags, int space_count);
 
 /* %p The void * pointer argument has to be printed in hexadecimal format. */
-int	ft_put_address_handle(void *ptr, enum e_flags flags);
+int	ft_put_address_handle(void *ptr, enum e_flags flags, int number);
 
 /*  %d Prints a decimal (base 10) number.
     %i Prints an integer in base 10.        */
-int	ft_put_decimal_handle(int n, enum e_flags flags);
+int	ft_put_decimal_handle(int n, enum e_flags flags, int number);
 
 /* %u Prints an unsigned decimal (base 10) number. */
-int	ft_put_unsigned_decimal_handle(unsigned int n, enum e_flags flags);
+int	ft_put_unsigned_decimal_handle(unsigned int n, \
+									enum e_flags flags, int number);
 
 /* %x Prints a number in hexadecimal (base 16) lowercase format. */
 /* %X Prints a number in hexadecimal (base 16) uppercase format. */
-int	ft_put_hexadecimal_handle(unsigned long x, int is_lower, \
-			enum e_flags flags);
 
-enum e_flags	ft_flags_format(const char **fmt, int *number);
+int	ft_put_hexadecimal_handle(unsigned long x, int is_lower, \
+								enum e_flags flags, int number);
+
+enum e_flags	ft_flags_parser(const char **fmt, int *number);
 
 int	ft_printf_redirect(va_list *ap, char conversions, \
 				enum e_flags flags, int number);
