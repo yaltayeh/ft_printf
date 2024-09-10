@@ -12,21 +12,16 @@
 
 #include "ft_printf.h"
 
-int	ft_put_decimal_handle(int n, enum e_flags flags, int number)
+int	ft_put_decimal_handle(t_input in, char **out)
 {
-	int	count;
+	int	ret;
+	int	num;
 
-	count = 0;
-	if (flags & PLUS && n >= 0)
-		count += write(1, "+", 1);
-	else if (flags & SPACE && n >= 0)
-		count += write(1, " ", 1);
-	if (flags & ZERO)
-		count += ft_putnbr_with_zero(n, number);
-	else
-		count += ft_putnbr_fd(n, 1);
-	if (flags & MINUS)
-		while (number > count)
-			count += ft_putchar(' ');
-	return (count);
+	ret = 0;
+	num = in.i32;
+	if (num < 0)
+		ret = write(1, '-', 1);
+	*out = ft_itoa(num, 0);
+	
+	return (ret);
 }

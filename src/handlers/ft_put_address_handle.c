@@ -12,15 +12,18 @@
  
 #include "ft_printf.h"
 
-int	ft_put_address_handle(void *ptr, enum e_flags flags, int number)
+int	ft_put_pointer_handle(t_input in, char **out)
 {
 	int				count;
 	unsigned long	addr;
 
 	count = 0;
-	addr = (unsigned long)ptr;
-	if (!ptr)
-		return (write(1, "(nil)", 5));
+	addr = (unsigned long)in.ptr;
+	if (!addr)
+	{
+		*out = ft_strdup("(nil)");
+		return (-1);
+	}
 	count += write(1, "0x", 2);
 	count += ft_putbase_fd(addr, HEX_BASE, 1);
 	// while (number > count)

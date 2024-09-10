@@ -12,24 +12,21 @@
 
 #include "ft_printf.h"
 
-int	ft_put_str_handle(char *str, enum e_flags flags, int number)
+int	ft_put_str_handle(t_input in, char **out)
 {
-	int	count;
-
-	count = 0;
-	if (!str)
+	if (!in.str)
 	{
-		str = "(null)";
-		number = 0;
+		*out = ft_strdup("(null)");
+		return (-1);
 	}
-//	printf("number: %d\n", number);
-	number -= ft_strlen(str);
-	if (flags & SPACE)
-		while (number-- > 0)
-			count += ft_putchar(' ');
-	count += ft_putstr(str);
-	if (flags & MINUS)
-		while (number-- > 0)
-			count += ft_putchar(' ');
-	return (count);
+	*out = ft_strdup(in.str);
+	// number -= ft_strlen(str);
+	// if (flags & SPACE)
+	// 	while (number-- > 0)
+	// 		count += ft_putchar(' ');
+	// count += ft_putstr(str);
+	// if (flags & MINUS)
+	// 	while (number-- > 0)
+	// 		count += ft_putchar(' ');
+	return (0);
 }

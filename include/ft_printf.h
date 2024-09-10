@@ -47,26 +47,26 @@ typedef union u_input
 }	t_input;
 
 /* %c Prints a single character. */
-int	ft_put_char_handle(t_input in, t_flags flags, int number);
+int	ft_char_handle(t_input in, char **out);
 
 /* %s Prints a string (as defined by the common C convention). */
-int	ft_put_str_handle(t_input in, t_flags flags, int number);
+int	ft_str_handle(t_input in, char **out);
 
 /* %p The void * pointer argument has to be printed in hexadecimal format. */
-int	ft_put_pointer_handle(t_input in, t_flags flags, int number);
+int	ft_pointer_handle(t_input in, char **out);
 
 /*  %d Prints a decimal (base 10) number.
     %i Prints an integer in base 10.        */
-int	ft_put_decimal_handle(t_input in, t_flags flags, int number);
+int	ft_decimal_handle(t_input in, char **out);
 
 /* %u Prints an unsigned decimal (base 10) number. */
-int	ft_put_u_decimal_handle(t_input in, t_flags flags, int number);
+int	ft_u_decimal_handle(t_input in, char **out);
 
 /* %x Prints a number in hexadecimal (base 16) lowercase format. */
-int	ft_put_hex_lower_handle(t_input in, t_flags flags, int number);
+int	ft_hex_lower_handle(t_input in, char **out);
 
 /* %X Prints a number in hexadecimal (base 16) uppercase format. */
-int	ft_put_hex_upper_handle(t_input in, t_flags flags, int number);
+int	ft_hex_upper_handle(t_input in, char **out);
 
 t_flags	ft_flags_parser(const char **fmt, int *number);
 

@@ -12,57 +12,88 @@
 
 #include "libft.h"
 
-static int	get_digit_count(int n)
+static int	get_digit_count(int n, int base)
 {
-	int	i;
+	int	count;
 
-	i = 0;
+	count = 0;
+	if (base < 2)
+		return (-1);
 	if (n == 0)
 		return (1);
 	while (n)
 	{
-		n /= 10;
-		i++;
+		n /= base;
+		count++;
 	}
-	return (i);
+	return (count);
 }
 
-static void	ft_putnbr_str(int n, char *str, int index)
+static int	get_digit_count_lu(unsigned long n, int base)
 {
-	if (n == 1 << 31)
+	int	count;
+
+	count = 0;
+	if (base < 2)
+		return (-1);
+	if (n == 0)
+		return (1);
+	while (n)
 	{
-		str[0] = '-';
-		str[1] = '2';
-		n = 147483648;
+		n /= base;
+		count++;
 	}
-	if (n < 0)
-	{
-		str[0] = '-';
-		n *= -1;
-	}
-	if (n <= 9)
-	{
-		str[index] = n + '0';
-	}
-	else
-	{
-		ft_putnbr_str(n / 10, str, index - 1);
-		ft_putnbr_str(n % 10, str, index);
-	}
+	return (count);
 }
 
-char	*ft_itoa(int n)
+
+char	*ft_itoa(int n, int with_sign)
 {
-	int		dcount;
 	char	*ret;
+	int		digit_count;
+	long	num;
 
-	dcount = get_digit_count(n);
-	if (n < 0)
-		dcount++;
-	ret = malloc(dcount + 1);
-	if (ret == NULL)
+	digit_count = get_digit_count(n, 10) + !!with_sign;
+	ret = ft_calloc(digit_count + 1, sizeof(char));
+	if (!ret)
 		return (NULL);
-	ft_putnbr_str(n, ret, dcount - 1);
-	ret[dcount] = '\0';
+	num = n;
+	if (num < 0)
+	{
+		num *= -1;
+		if (with_sign)
+			ret[0] = '-';
+	}
+	if (num == 0)
+		ret[0] = '0';
+	while (num)
+	{
+		ret[--digit_count] = '0' + (num % 10);
+		num /= 10;
+	}
+	return (ret);
+}
+
+
+char	*ft_itoa_base(unsigned long n, char *base_sym)
+{
+	char	*ret;
+	int		digit_count;
+	int		base;
+
+	base = ft_strlen(base_sym);
+	digit_count = get_digit_count_lu(n, base);
+	if (digit_count == -1)
+		return (NULL);
+	ret = ft_calloc(digit_count + 1, sizeof(char));
+	if (!ret)
+		return (NULL);
+	if (n == 0)
+		ret[0] = '0';
+	while (n)
+	{
+		ret[--digit_count] = base_sym[n % base];
+		n /= base;
+	}
 	return (ret);
 }
