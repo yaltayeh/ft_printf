@@ -29,6 +29,7 @@ LIBFT_SOURCES =	\
 			ft_string/ft_isprint.c			\
 			ft_string/ft_isspace.c			\
 			ft_string/ft_itoa.c				\
+			ft_string/ft_itoa_base.c		\
 			ft_string/ft_split.c			\
 			ft_string/ft_strchr.c			\
 			ft_string/ft_strdup.c			\

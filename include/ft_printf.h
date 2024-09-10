@@ -22,18 +22,18 @@
 # define CONVENTIONS_CHARACTERS "cspdiuxX%"
 # define FLAGS_CHARACTERS "# +-.0123456789"
 # define HEX_BASE "0123456789abcdef"
-# define HEX_UPPER_BASE "0123456789ABCDEF"
 # define DECIMAL_BASE "0123456789"
 
 typedef enum	e_flags
 {
 	NONE = 0,
-	HASH = 1 << 0,
+	SHARP = 1 << 0,
 	SPACE = 1 << 1,
 	PLUS = 1 << 2,
 	MINUS = 1 << 3,
 	DOT = 1 << 4,
-	ZERO = 1 << 5
+	ZERO = 1 << 5,
+	ALL_FLAGS = -1
 }	t_flags;
 
 typedef union u_input
@@ -45,6 +45,17 @@ typedef union u_input
 	unsigned int u32;
 	unsigned long u64;
 }	t_input;
+
+int	ft_printf(const char *fmt, ...);
+
+int	ft_main(t_input input, t_flags flags, int number, \
+			int is_upper, int (*handle)(t_input, char **));
+
+t_flags	ft_flags_parser(const char **fmt, int *number);
+
+int	ft_printf_redirect(va_list *ap, char conversions, \
+				t_flags flags, int number);
+
 
 /* %c Prints a single character. */
 int	ft_char_handle(t_input in, char **out);
@@ -63,16 +74,8 @@ int	ft_decimal_handle(t_input in, char **out);
 int	ft_u_decimal_handle(t_input in, char **out);
 
 /* %x Prints a number in hexadecimal (base 16) lowercase format. */
-int	ft_hex_lower_handle(t_input in, char **out);
-
 /* %X Prints a number in hexadecimal (base 16) uppercase format. */
-int	ft_hex_upper_handle(t_input in, char **out);
+int	ft_hex_handle(t_input in, char **out);
 
-t_flags	ft_flags_parser(const char **fmt, int *number);
-
-int	ft_printf_redirect(va_list *ap, char conversions, \
-				t_flags flags, int number);
-
-int	ft_printf(const char *fmt, ...);
 
 #endif

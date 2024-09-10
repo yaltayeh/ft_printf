@@ -13,41 +13,6 @@
 #include "ft_printf.h"
 
 
-int	ft_main(t_input in, t_flags flags, \
-			t_flags allow_flags, int number, \
-			int (*handle)(t_input, char **))
-{
-	int		count;
-	char	*out;
-
-	out = NULL;
-	count += handle(in, &out);
-	flags &= allow_flags;
-	if (flags & PLUS)
-		count += write(1, "+", 1);
-	else if (flags & SPACE)
-		count += write(1, " ", 1);
-	count += ft_putstr(out);
-	if (flags & MINUS)
-		while (number > count)
-			count += ft_putchar(' ');
-	
-}
-
-// i,  d
-// count = 0;
-// if (flags & PLUS && n >= 0)
-// 	count += write(1, "+", 1);
-// else if (flags & SPACE && n >= 0)
-// 	count += write(1, " ", 1);
-// if (flags & ZERO)
-// 	count += ft_putnbr_with_zero(n, number);
-// else
-// 	count += ft_putnbr_fd(n, 1);
-// if (flags & MINUS)
-// 	while (number > count)
-// 		count += ft_putchar(' ');
-
 
 enum e_flags	ft_flags_parser(const char **fmt, int *number)
 {

@@ -18,12 +18,9 @@ SOURCES = \
 		ft_printf.c									\
 		ft_printf_redirect.c						\
 		ft_flags_parser.c							\
-		handlers/ft_put_char_handle.c				\
-		handlers/ft_put_address_handle.c  			\
-		handlers/ft_put_decimal_handle.c			\
-		handlers/ft_put_hexadecimal_handle.c		\
-		handlers/ft_put_str_handle.c				\
-		handlers/ft_put_unsigned_decimal_handle.c
+		ft_handlers.c								\
+		ft_handlers2.c								\
+		ft_main.c
 
 # Convert ext source file from .c to .o
 OBJECTS = $(SOURCES:.c=.o)
@@ -65,7 +62,8 @@ libft:
 
 test: $(NAME)
 #	clear
-	cc -L. main.c $(NAME)  -Iinclude -Ilibft/include
+	cc -L. test/main.c $(NAME)  -Iinclude -Ilibft/include
+	clear
 	@echo "________________________________________"
 	./a.out
 	
