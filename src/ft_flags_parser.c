@@ -11,7 +11,33 @@
 /*  ************************************************************************** */
 
 #include "ft_printf.h"
- 
+
+
+int	ft_main(t_input in, t_flags flags, \
+			int number, t_flags allow_flags, \
+			int (*handle)(t_input, char **))
+{
+	int		count;
+	char	*out;
+
+	out = NULL;
+	count += handle(in, &out);
+	flags &= allow_flags;
+	if (flags & PLUS)
+		count += write(1, "+", 1);
+	else if (flags & SPACE)
+		count += write(1, " ", 1);
+	count += ft_putstr(out);
+	if (flags & MINUS)
+		while (number > count)
+			count += ft_putchar(' ');
+	else if (flags & )
+	{
+		/* code */
+	}
+	
+}
+
 enum e_flags	ft_flags_parser(const char **fmt, int *number)
 {
 	char			flags_character[16];
@@ -32,7 +58,7 @@ enum e_flags	ft_flags_parser(const char **fmt, int *number)
 
 		if (*flag == ' ' || *flag == '.' || *flag == '-')
 			*number = ft_atoi_track(fmt);
-		if (ft_isdigit(*flag))
+		if (ft_isdigit(*flag) && *flag != '0')
 			flags |= SPACE;
 		else
 			flags |= (1 << flag_index);

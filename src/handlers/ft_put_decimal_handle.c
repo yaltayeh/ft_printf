@@ -17,21 +17,16 @@ int	ft_put_decimal_handle(int n, enum e_flags flags, int number)
 	int	count;
 
 	count = 0;
-	if (flags & PLUS)
-	{
-		if (n >= 0)
-			count += write(1, "+", 1);
-	}
-	else if (flags & SPACE)
-	{
-		if (n >= 0)
-			count += write(1, " ", 1);
-	}
-	count += ft_putnbr_fd(n, 1);
+	if (flags & PLUS && n >= 0)
+		count += write(1, "+", 1);
+	else if (flags & SPACE && n >= 0)
+		count += write(1, " ", 1);
+	if (flags & ZERO)
+		count += ft_putnbr_with_zero(n, number);
+	else
+		count += ft_putnbr_fd(n, 1);
 	if (flags & MINUS)
-	{
 		while (number > count)
 			count += ft_putchar(' ');
-	}
 	return (count);
 }

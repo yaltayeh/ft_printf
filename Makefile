@@ -50,7 +50,7 @@ include libft/include.mk
 # Add prefix -I to all include dirs for use in compiler 
 INCLUDE := $(addprefix -I, $(INCLUDE))
 
-# Rule for make libftprintf.a prerequisites the all objects in libftprintf and libft projects
+# Rule for make libftprintf.a, prerequisites is all objects in libftprintf and libft projects
 $(NAME): $(OBJECTS)
 	@$(MAKE) -C $(LIBFTDIR) --no-print-directory
 	@test -f $(NAME) \
@@ -64,9 +64,9 @@ libft:
 	$(MAKE) -C $(LIBFTDIR) all
 
 test: $(NAME)
-	cc -L. main.c $(NAME)  -Iinclude -Ilibft/include
 #	clear
-	@echo "---------------------------"
+	cc -L. main.c $(NAME)  -Iinclude -Ilibft/include
+	@echo "________________________________________"
 	./a.out
 	
 

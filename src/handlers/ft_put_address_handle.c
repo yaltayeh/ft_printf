@@ -23,8 +23,7 @@ int	ft_put_address_handle(void *ptr, enum e_flags flags, int number)
 		return (write(1, "(nil)", 5));
 	count += write(1, "0x", 2);
 	count += ft_putbase_fd(addr, HEX_BASE, 1);
-	while (number > count)
-		count += ft_putchar(' ');
-	
+	// while (number > count)
+	// 	count += ft_putchar(' ');
 	return (count);
 }

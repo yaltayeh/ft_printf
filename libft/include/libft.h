@@ -57,6 +57,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 int		ft_putchar(char c);
 int		ft_putstr(const char *s);
+int		ft_putnbr_with_zero(int n, int zero_count);
 int		ft_puthexadecimal(unsigned int x, int is_lower);
 int		ft_putbase_fd(unsigned long n, char *base_symbol, int fd);
 int		ft_putchar_fd(char c, int fd);

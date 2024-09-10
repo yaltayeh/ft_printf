@@ -58,6 +58,7 @@ LIBFT_SOURCES +=	\
 LIBFT_SOURCES +=	\
 			ft_io/ft_putchar.c				\
 			ft_io/ft_putstr.c				\
+			ft_io/ft_putnbr_with_zero.c				\
 			ft_io/ft_atoi.c					\
 			ft_io/ft_putchar_fd.c			\
 			ft_io/ft_putstr_fd.c			\

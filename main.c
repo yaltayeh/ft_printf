@@ -13,24 +13,33 @@
 
 int main()
 {
-	TEST(1, print(" %01d ", 0));
-	TEST(3, print(" %04d ", 9));
-	TEST(4, print(" %01d ", 10));
-	TEST(5, print(" %02d ", 11));
-	TEST(6, print(" %03d ", 15));
-	TEST(7, print(" %04d ", 16));
-	TEST(8, print(" %05d ", 17));
-	TEST(9, print(" %01d ", 99));
-	TEST(10, print(" %02d ", 100));
-	TEST(11, print(" %03d ", 101));
-	TEST(15, print(" %04d ", -14));
-	TEST(16, print(" %05d ", -15));
-	TEST(17, print(" %06d ", -16));
-	TEST(21, print(" %09d ", INT_MAX));
-	TEST(23, print(" %011d ", LONG_MAX));
-	TEST(24, print(" %012d ", LONG_MIN));
-	TEST(25, print(" %013d ", UINT_MAX));
-	TEST(26, print(" %014d ", ULONG_MAX));
-	TEST(27, print(" %015d ", 9223372036854775807LL));
-	TEST(28, print(" %09d %010d %011d %012d %013d %014d %015d", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+	TEST(10, print(" % d ", 0));
+	TEST(12, print(" % d ", 1));
+	TEST(13, print(" % d ", 9));
+	TEST(14, print(" % d ", 10));
+	TEST(15, print(" % d ", 11));
+	TEST(16, print(" % d ", 15));
+	TEST(17, print(" % d ", 16));
+	TEST(18, print(" % d ", 17));
+	TEST(19, print(" % d ", 99));
+	TEST(20, print(" % d ", 100));
+	TEST(21, print(" % d ", 101));
+	TEST(31, print(" % d ", INT_MAX));
+	TEST(34, print(" % d ", LONG_MIN));
+	TEST(38, print(" % d % d % d % d % d % d % d", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+	TEST(39, print(" % i ", 0));
+	TEST(41, print(" % i ", 1));
+	TEST(42, print(" % i ", 9));
+	TEST(43, print(" % i ", 10));
+	TEST(44, print(" % i ", 11));
+	TEST(45, print(" % i ", 15));
+	TEST(46, print(" % i ", 16));
+	TEST(47, print(" % i ", 17));
+	TEST(48, print(" % i ", 99));
+	TEST(49, print(" % i ", 100));
+	TEST(50, print(" % i ", 101));
+	TEST(60, print(" % i ", INT_MAX));
+	TEST(63, print(" % i ", LONG_MIN));
+	TEST(67, print(" % i % i % i % i % i % i % i", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+	TEST(67, print(" % i % i % i % i % i % i % i", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
 }
