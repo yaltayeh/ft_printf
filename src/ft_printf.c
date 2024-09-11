@@ -17,20 +17,20 @@ int	ft_printf(const char *fmt, ...)
 	enum e_flags	flags;
 	va_list			ap;
 	int				count;
-	int				number;
+	int				numbers[8];
 
 	va_start(ap, fmt);
 	flags = NONE;
 	count = 0;
-	number = 0;
+	ft_bzero(numbers, sizeof(numbers));
 	while (*fmt)
 	{
 		if (*fmt == '%')
 		{
 			fmt++;
-			flags = ft_flags_parser(&fmt, &number);
+			flags = ft_flags_parser(&fmt, numbers, NONE);
 			if (ft_strchr(CONVENTIONS_CHARACTERS, *fmt))
-				count += ft_printf_redirect(&ap, *fmt, flags, number);
+				count += ft_printf_redirect(&ap, *fmt, flags, numbers);
 			else
 				count += ft_putchar(*fmt);
 		}

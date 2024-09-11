@@ -12,56 +12,78 @@
 
 #include "ft_printf.h"
 
-int	ft_printf_redirect(va_list *ap, char conversions, \
-						t_flags flags, int number)
+static int	ft_printf_redirect3(va_list *ap, char conversions, \
+								t_handler_data data)
 {
-	int	ret;
-	t_input input;
-	int (*handle)(t_input, char **);
-	int is_upper;
-
-	ret = 0;
-	is_upper = 0;
-	if (conversions == 'c')
+	if (conversions == 'x' || conversions == 'X')
 	{
-		input.c = (char)va_arg(*ap, int);
-		handle = ft_char_handle;
-		flags &= MINUS;
-	}
-	else if (conversions == 's')
-	{
-		input.str = va_arg(*ap, char *);
-		handle = ft_str_handle;
-		flags &= MINUS;
-	}
-	else if (conversions == 'p')
-	{
-		input.ptr = va_arg(*ap, void *);
-		handle = ft_pointer_handle;
-		flags &= MINUS;
-	}
-	else if (conversions == 'd' || conversions == 'i')
-	{
-		input.i32 = va_arg(*ap, int);
-		handle = ft_decimal_handle;
-		flags &= PLUS | MINUS | ZERO | DOT | SPACE;
+		data.input.u32 = va_arg(*ap, unsigned int);
+		data.handle = ft_hex_handle;
+		data.is_digit = 1;
+		data.flags &= SHARP | MINUS | ZERO | DOT;
+		data.to_upper = conversions == 'X';
 	}
 	else if (conversions == 'u')
 	{
-		input.u32 = va_arg(*ap, unsigned int);
-		handle = ft_u_decimal_handle;
-		flags &= MINUS | ZERO | DOT;
-	}
-	else if (conversions == 'x' || conversions == 'X')
-	{
-		input.u32 = va_arg(*ap, unsigned int);
-		handle = ft_hex_handle;
-		flags &= SHARP | MINUS | ZERO | DOT;
-		is_upper = conversions == 'X';
+		data.input.u32 = va_arg(*ap, unsigned int);
+		data.handle = ft_u_decimal_handle;
+		data.is_digit = 1;
+		data.flags &= MINUS | ZERO | DOT;
 	}
 	else if (conversions == '%')
-		return (ft_putchar('%'));
+	{
+		data.input.ptr = NULL;
+		data.handle = ft_percent_handle;
+		data.flags &= MINUS | NUMBER;
+	}
+	else
+		return (-1);
+	return (ft_main(data));
+}
 
-	ret = ft_main(input, flags, number, is_upper, handle);
-	return (ret);
+static int	ft_printf_redirect2(va_list *ap, char conversions, \
+								t_handler_data data)
+{
+	if (conversions == 'p')
+	{
+		data.input.ptr = va_arg(*ap, void *);
+		data.handle = ft_pointer_handle;
+		data.flags &= MINUS;
+	}
+	else if (conversions == 'd' || conversions == 'i')
+	{
+		data.input.i32 = va_arg(*ap, int);
+		data.handle = ft_decimal_handle;
+		data.is_digit = 1;
+		data.flags &= PLUS | MINUS | ZERO | DOT | SPACE | NUMBER;
+	}
+	else
+		return (ft_printf_redirect3(ap, conversions, data));
+	return (ft_main(data));
+}
+
+int	ft_printf_redirect(va_list *ap, char conversions, \
+						t_flags flags, int *numbers)
+{
+	t_handler_data	data;
+
+	ft_bzero(&data, sizeof(data));
+	ft_memmove(data.numbers, numbers, sizeof(data.numbers));
+	data.flags = flags;
+	if (conversions == 'c')
+	{
+		data.input.c = (char)va_arg(*ap, int);
+		data.handle = ft_char_handle;
+		data.flags &= MINUS | NUMBER;
+		data.is_char = 1;
+	}
+	else if (conversions == 's')
+	{
+		data.input.str = va_arg(*ap, char *);
+		data.handle = ft_str_handle;
+		data.flags &= MINUS | DOT | NUMBER;
+	}
+	else
+		return (ft_printf_redirect2(ap, conversions, data));
+	return (ft_main(data));
 }

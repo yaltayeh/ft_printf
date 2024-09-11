@@ -1,21 +1,18 @@
-// #include "libft.h"
-// #include "ft_printf.h"
 #include <stdio.h>
+#include <unistd.h>  // For write() and close()
+#include <errno.h>   // For errno and perror()
 
-void test(void **out)
-{
-	char	*x;
-	char	*y;
+int main() {
+    // إغلاق الـ stdout
+    close(STDOUT_FILENO);
 
-	printf("%p,  %p\n", &x, &y);
-	out[0] = &x;
-	out[1] = &y;
-}
+    // محاولة الكتابة إلى stdout المغلق
+    const char text[] = "Hello, World!\n";
+    ssize_t bytes_written = write(STDOUT_FILENO, text, sizeof(text));
+    int ret = printf("testdfad");
+    char a[4];
+    a[0] = '3' + bytes_written;
+    write(2, a, 1);
 
-int main()
-{
-	void *out[2];
-	test(out);
-	printf("%p,  %p\n", out[0], out[1]);
-	printf("%zu,  %zu\n", sizeof(out), sizeof(out[0]));
+    return 0;
 }

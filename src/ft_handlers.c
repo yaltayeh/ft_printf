@@ -1,10 +1,8 @@
 #include "ft_printf.h"
 
-int	ft_char_handle(t_input in, char **out)
+int	ft_char_handle(t_handler_input in, char **out)
 {
 	char *str;
-	if (in.c == '\0')
-		return (write(1, "\0", 1));
 	str = malloc(1);
 	if (str)
 		*str = in.c;
@@ -12,7 +10,7 @@ int	ft_char_handle(t_input in, char **out)
 	return (0);
 }
 
-int	ft_str_handle(t_input in, char **out)
+int	ft_str_handle(t_handler_input in, char **out)
 {
 	if (!in.str)
 	{
@@ -23,7 +21,7 @@ int	ft_str_handle(t_input in, char **out)
 	return (0);
 }
 
-int	ft_pointer_handle(t_input in, char **out)
+int	ft_pointer_handle(t_handler_input in, char **out)
 {
 	unsigned long	addr;
 	char			*hex;
