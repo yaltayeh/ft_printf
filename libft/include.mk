@@ -1,9 +1,7 @@
 # If LIBFTDIR not define set '.',
 # else Set before include,
 # because include libft from anywhere
-ifndef LIBFTDIR
-LIBFTDIR = .
-endif
+LIBFTDIR ?= .
 
 # Set colors variables
 RESET	= \033[0;39m

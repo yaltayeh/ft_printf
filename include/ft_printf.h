@@ -71,17 +71,17 @@ size_t	ft_zero_apply(size_t num, size_t count);
 size_t	ft_blank_apply(size_t num, size_t count);
 
 /* %c Prints a single character. */
-int		ft_char_handle(t_handler_input in, char **out);
+size_t	ft_char_handle(char c, t_flags flags, int *numbers);
 
 /* %s Prints a string (as defined by the common C convention). */
-int		ft_str_handle(t_handler_input in, char **out);
+size_t	ft_str_handle(char *s, t_flags flags, int *numbers);
 
 /* %p The void * pointer argument has to be printed in hexadecimal format. */
-int		ft_pointer_handle(t_handler_input in, char **out);
+size_t	ft_pointer_handle(void *ptr, t_flags flags, int *numbers);
 
 /*  %d Prints a decimal (base 10) number.
     %i Prints an integer in base 10.        */
-int		ft_decimal_handle(t_handler_input in, char **out);
+size_t	ft_decimal_handle(int i32, t_flags flags, int *numbers);
 
 /* %u Prints an unsigned decimal (base 10) number. */
 size_t	ft_u_decimal_handle(unsigned int u32, t_flags flags, int *numbers);

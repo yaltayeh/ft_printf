@@ -25,14 +25,13 @@ t_flags	ft_flags_parser(const char **fmt, int *numbers, t_flags flags)
 		flag_index = flag - flags_character;
 		if (ft_isdigit(*flag) && *flag != '0')
 		{
-			numbers[6] = ft_atoi_track(fmt);
+			numbers[5] = ft_atoi_track(fmt);
 			flags |= NUMBER;
 		}
 		else
 		{
 			*fmt = *fmt + 1;
-			if (*flag == ' ' || *flag == '.' \
-				|| *flag == '-' || *flag == '0')
+			if (*flag == '.' || *flag == '-' || *flag == '0')
 				numbers[flag_index] = ft_atoi_track(fmt);
 			flags |= (1 << flag_index);
 		}
