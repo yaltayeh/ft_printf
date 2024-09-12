@@ -15,12 +15,13 @@ INCLUDE 	= include
 
 # Set source files to SOURCES variable
 SOURCES = \
-		ft_printf.c									\
-		ft_printf_redirect.c						\
-		ft_flags_parser.c							\
-		ft_handlers.c								\
-		ft_handlers2.c								\
-		ft_main.c
+		ft_printf.c				\
+		ft_printf_redirect.c	\
+		ft_flags_parser.c		\
+		ft_handlers.c			\
+		ft_handlers2.c			\
+		ft_main.c				\
+		ft_flags_apply.c
 
 # Convert ext source file from .c to .o
 OBJECTS = $(SOURCES:.c=.o)

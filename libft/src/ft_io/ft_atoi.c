@@ -40,27 +40,14 @@ int	ft_atoi(const char *nptr)
 	return (ret * sign);
 }
 
-int	ft_atoi_track(const char **p_nptr)
+size_t	ft_atoi_track(const char **p_nptr)
 {
 	const char	*nptr;
-	int			sign;
-	int			ret;
+	size_t		ret;
 
 	nptr = *p_nptr;
 	while (ft_isspace(*nptr))
 		nptr++;
-	if (*nptr == '-')
-	{
-		sign = -1;
-		nptr++;
-	}
-	else if (*nptr == '+')
-	{
-		sign = 1;
-		nptr++;
-	}
-	else
-		sign = 1;
 	ret = 0;
 	while (ft_isdigit(*nptr))
 	{
@@ -68,5 +55,5 @@ int	ft_atoi_track(const char **p_nptr)
 		nptr++;
 	}
 	*p_nptr = nptr;
-	return (ret * sign);
+	return (ret);
 }

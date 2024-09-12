@@ -15,27 +15,20 @@
 static int	ft_printf_redirect3(va_list *ap, char conversions, \
 								t_handler_data data)
 {
-	if (conversions == 'x' || conversions == 'X')
-	{
-		data.input.u32 = va_arg(*ap, unsigned int);
-		data.handle = ft_hex_handle;
-		data.is_digit = 1;
-		data.flags &= SHARP | MINUS | ZERO | DOT;
-		data.to_upper = conversions == 'X';
-	}
+	if (conversions == 'x')
+		return (ft_hex_handle(va_arg(*ap, unsigned int), data.flags, data.numbers, 0));
+	else if (conversions == 'X')
+		return (ft_hex_handle(va_arg(*ap, unsigned int), data.flags, data.numbers, 1));
 	else if (conversions == 'u')
 	{
-		data.input.u32 = va_arg(*ap, unsigned int);
-		data.handle = ft_u_decimal_handle;
-		data.is_digit = 1;
-		data.flags &= MINUS | ZERO | DOT;
+		return (ft_u_decimal_handle(va_arg(*ap, unsigned int), data.flags, data.numbers));
+		// data.input.u32 = va_arg(*ap, unsigned int);
+		// data.handle = ft_u_decimal_handle;
+		// data.is_digit = 1;
+		// data.flags &= MINUS | ZERO | DOT;
 	}
 	else if (conversions == '%')
-	{
-		data.input.ptr = NULL;
-		data.handle = ft_percent_handle;
-		data.flags &= MINUS | NUMBER;
-	}
+		return (ft_percent_handle(data.flags, data.numbers));
 	else
 		return (-1);
 	return (ft_main(data));
