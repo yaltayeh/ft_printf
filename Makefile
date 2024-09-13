@@ -20,7 +20,6 @@ SOURCES = \
 		ft_flags_parser.c		\
 		ft_handlers.c			\
 		ft_handlers2.c			\
-		ft_main.c				\
 		ft_flags_apply.c
 
 # Convert ext source file from .c to .o

@@ -37,29 +37,7 @@ typedef enum e_flags
 	NUMBER = 1 << 6,
 }	t_flags;
 
-typedef union u_handler_input
-{
-	char			c;
-	char			*str;
-	void			*ptr;
-	int				i32;
-	unsigned int	u32;
-}	t_handler_input;
-
-typedef struct s_handler_data
-{
-	t_handler_input	input;
-	t_flags			flags;
-	int				numbers[8];
-	int				to_upper;
-	int				is_digit;
-	int				is_char;
-	int				(*handle)(t_handler_input, char **);
-}	t_handler_data;
-
 int		ft_printf(const char *fmt, ...);
-
-int		ft_main(t_handler_data data);
 
 t_flags	ft_flags_parser(const char **fmt, int *numbers, t_flags flags);
 
@@ -70,26 +48,12 @@ size_t	ft_sharp_apply(int upper);
 size_t	ft_zero_apply(size_t num, size_t count);
 size_t	ft_blank_apply(size_t num, size_t count);
 
-/* %c Prints a single character. */
 size_t	ft_char_handle(char c, t_flags flags, int *numbers);
-
-/* %s Prints a string (as defined by the common C convention). */
 size_t	ft_str_handle(char *s, t_flags flags, int *numbers);
-
-/* %p The void * pointer argument has to be printed in hexadecimal format. */
 size_t	ft_pointer_handle(void *ptr, t_flags flags, int *numbers);
-
-/*  %d Prints a decimal (base 10) number.
-    %i Prints an integer in base 10.        */
 size_t	ft_decimal_handle(int i32, t_flags flags, int *numbers);
-
-/* %u Prints an unsigned decimal (base 10) number. */
 size_t	ft_u_decimal_handle(unsigned int u32, t_flags flags, int *numbers);
-
-/* %x Prints a number in hexadecimal (base 16) lowercase format. */
-/* %X Prints a number in hexadecimal (base 16) uppercase format. */
 size_t	ft_hex_handle(unsigned int u32, t_flags flags, int *numbers, int upper);
-
 size_t	ft_percent_handle(t_flags flags, int *numbers);
 
 #endif

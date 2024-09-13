@@ -23,18 +23,20 @@ size_t	ft_str_handle(char *s, t_flags flags, int *numbers)
 	if (!s)
 	{
 		s = "(null)";
-
 		if (flags & DOT && flags & NUMBER)
+		{
 			if (numbers[4] > numbers[5])
 				numbers[5] = 0;
 			else if (numbers[4] < numbers[5])
 				numbers[4] = 0;
+		}
 		if (flags & DOT && flags & MINUS)
+		{
 			if (numbers[3] > numbers[5])
 				numbers[5] = 0;
 			else if (numbers[3] < numbers[5])
 				numbers[3] = 0;
-		//numbers[4] = 0;
+		}
 	}
 	len = ft_strlen(s);
 	if (flags & DOT && len > numbers[4])
@@ -46,7 +48,7 @@ size_t	ft_str_handle(char *s, t_flags flags, int *numbers)
 	if (flags & MINUS)
 		count += ft_blank_apply(numbers[3], count);
 	return (count);
-} 
+}
 
 size_t	ft_pointer_handle(void *ptr, t_flags flags, int *numbers)
 {
@@ -61,14 +63,13 @@ size_t	ft_pointer_handle(void *ptr, t_flags flags, int *numbers)
 		str = "(nil)";
 		hex = NULL;
 	}
-	else 
+	else
 	{
 		hex = ft_itoa_base(addr, HEX_BASE);
 		str = ft_strjoin("0x", hex);
 		free(hex);
 	}
 	len = ft_strlen(str);
-
 	ft_putstr(str);
 	if (flags & MINUS)
 		len += ft_blank_apply(numbers[3], len);
