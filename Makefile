@@ -20,6 +20,7 @@ SOURCES = \
 		ft_flags_parser.c		\
 		ft_handlers.c			\
 		ft_handlers2.c			\
+		ft_decimal_handler.c	\
 		ft_flags_apply.c
 
 # Convert ext source file from .c to .o
@@ -51,30 +52,22 @@ INCLUDE := $(addprefix -I, $(INCLUDE))
 $(NAME): $(OBJECTS)
 	@$(MAKE) -C $(LIBFTDIR) --no-print-directory
 	@test -f $(NAME) \
-		&& echo "$(MAGENTA)Update archive $(NAME) $(RESET)" \
-		|| echo "$(MAGENTA)Create archive $(NAME) $(RESET)"
+	&& echo "$(MAGENTA)Update archive $(NAME) $(RESET)" \
+	|| echo "$(MAGENTA)Create archive $(NAME) $(RESET)"
 	@ar rcs $@ $?
 	
 
 # Rule libft for make libft.a and our objects only
 libft:
-	$(MAKE) -C $(LIBFTDIR) all
-
-test: $(NAME)
-#	clear
-	cc -L. test/main.c $(NAME)  -Iinclude -Ilibft/include
-	clear
-	@echo "________________________________________"
-	./a.out
-	
+	$(MAKE) -C $(LIBFTDIR) all	
 
 # Rule for build source files
 # and dir if not exists
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $@ \
-		&& echo "$(GREEN)Build $@ object from $< $(RESET)"\
-		|| echo "$(RED)Error in try build $< $(RESET)"
+	&& echo "$(GREEN)Build $@ object from $< $(RESET)"\
+	|| echo "$(RED)Error in try build $< $(RESET)"
 
 # Clean all object file in libftprintf and libft
 clean:
