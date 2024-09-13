@@ -3,7 +3,7 @@
 #include <limits.h>
 
 #define print(x, ...) \
-	printf("ft_printf(\"%s\", %s)\n", x, #__VA_ARGS__);\
+	printf("ft_printf(\x1B[31m\"%s\", %s)\x1B[0m\n", x, #__VA_ARGS__);\
 	a = printf("'"x"'\n", __VA_ARGS__); \
 	b = ft_printf("'"x"'\n", __VA_ARGS__); \
 	printf("%d == %d\n", a, b);	
@@ -13,13 +13,15 @@
 	x
 	
 #define _ft_printf(x, ...) \
-	TEST(0, print(x, __VA_ARGS__));
+	TEST(++count, print(x, __VA_ARGS__));
 
+int a, b, count = 0;
 
 int main()
 {
-	int a, b;
-	_ft_printf("42%53lc42", (char)14);
+	unsigned int x = 0xffd324;
+	_ft_printf("%##34.30x", x);
+	_ft_printf("%##43X", x);
 }
 
 /*
@@ -28,6 +30,5 @@ Total     OK: 670  KO: 361
 Total     OK: 679  KO: 352
 Total     OK: 681  KO: 350
 Total     OK: 716  KO: 315
-
 */
 

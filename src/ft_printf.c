@@ -17,7 +17,7 @@ int	ft_printf(const char *fmt, ...)
 	enum e_flags	flags;
 	va_list			ap;
 	int				count;
-	int				numbers[8];
+	int				numbers[2];
 
 	va_start(ap, fmt);
 	flags = NONE;
